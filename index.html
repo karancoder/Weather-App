@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Weather App</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="current-info">
+                <div class="date-location-container">
+                    <div class="location">New York</div>
+                    <div class="date-time" id="date-time">
+                        <span class="date" id="date">
+                            Monday, 12 May 2014
+                        </span>
+                        <span class="time" id="time"> 12:30 </span>
+                        <span id="am-pm"> AM </span>
+                    </div>
+                </div>
+                <div class="weather-details-container" id="current-details">
+                    <div class="temp-info-container">
+                        <div class="weather-item">
+                            <div>Temperature</div>
+                            <div>+25</div>
+                        </div>
+                        <div class="weather-item">
+                            <div>Feels Like</div>
+                            <div>+20</div>
+                        </div>
+                    </div>
+                    <div class="general-weather-info-container">
+                        <div
+                            class="general-weather-info-icon"
+                            id="general-weather-info-icon"
+                        >
+                            Some Icon
+                        </div>
+                        <div
+                            class="general-weather-info-text"
+                            id="general-weather-info-text"
+                        >
+                            Cloudy, storm
+                        </div>
+                    </div>
+                    <div class="additional-weather-info-container">
+                        <div class="additional-weather-info-item">
+                            <div>Pressure</div>
+                            <div>743 mm Hg</div>
+                        </div>
+                        <div class="additional-weather-info-item">
+                            <div>Humidity</div>
+                            <div>46%</div>
+                        </div>
+                        <div class="additional-weather-info-item">
+                            <div>Wind</div>
+                            <div>2m/s NW</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="future-forecast-container">
+                <div class="future-forecast-item">
+                    <div class="future-forecast-day" id="future-forecast-day">
+                        Monday
+                    </div>
+                    <div class="future-forecast-icon" id="future-forecast-icon">
+                        Some Icon
+                    </div>
+                    <div
+                        class="future-forecast-temperature"
+                        id="future-forecast-temperature"
+                    >
+                        +30
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="app.js"></script>
+    </body>
+</html>
