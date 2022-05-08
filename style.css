@@ -42,8 +42,41 @@ body {
     align-items: center;
 }
 
+.location-search-bar {
+    display: flex;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: saturate(180%) blur(10px);
+}
+
 .location {
-    font-size: 4rem;
+    background: none;
+    border: none;
+    padding: 0.7rem;
+    font-size: 2.3rem;
+    color: white;
+    /* text-align: left; */
+}
+
+.location::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    /* text-align: center; */
+}
+
+.location:focus {
+    color: white;
+    outline: none;
+    /* text-align: center; */
+}
+
+.location-search-btn {
+    background: none;
+    border: none;
+    padding: 0.7rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .date-time {
@@ -188,7 +221,11 @@ body {
     }
 
     .location {
-        font-size: 3rem;
+        font-size: 2rem;
+    }
+
+    .location-search-btn {
+        font-size: 1.3rem;
     }
 
     .date-time {

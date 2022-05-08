@@ -19,11 +19,25 @@
         <div class="container">
             <div class="current-info">
                 <div class="date-location-container">
-                    <div class="location">New York</div>
+                    <div class="location-search-bar">
+                        <input
+                            class="location"
+                            id="location"
+                            placeholder="Enter your location"
+                            size="20"
+                            required
+                        />
+                        <button
+                            class="location-search-btn"
+                            id="location-search-btn"
+                        >
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
                     <div class="date-time" id="date-time">
-                        <div class="date" id="date">Monday, 12 May 2014</div>
-                        <div class="time" id="time">
-                            12:30 <span id="am-pm"> AM </span>
+                        <div class="date" id="date"></div>
+                        <div class="time">
+                            <span id="time"></span>
                         </div>
                     </div>
                 </div>
@@ -65,18 +79,26 @@
                             </div>
                         </div>
                         <div class="additional-weather-info-text-list">
-                            <div class="additional-weather-info-text">
+                            <div
+                                class="additional-weather-info-text"
+                                id="pressure"
+                            >
                                 743 mm Hg
                             </div>
-                            <div class="additional-weather-info-text">46%</div>
-                            <div class="additional-weather-info-text">
+                            <div
+                                class="additional-weather-info-text"
+                                id="humidity"
+                            >
+                                46%
+                            </div>
+                            <div class="additional-weather-info-text" id="wind">
                                 2m/s NW
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="future-forecast-container">
+            <div class="future-forecast-container" id="future-forecast-list">
                 <div class="future-forecast-item">
                     <div class="future-forecast-day" id="future-forecast-day">
                         Monday
