@@ -18,7 +18,7 @@ body {
 }
 
 .container {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.4);
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -77,6 +77,14 @@ body {
     cursor: pointer;
     color: white;
     border-left: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.location-search-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.location-search-btn:active {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .date-time {
