@@ -112,7 +112,7 @@ mobileScreenMediaQueryElement.addEventListener(
 // Refresh data every one second
 setInterval(refreshAllData, 1000);
 refreshAllData();
-safeLoadWeatherData(lastValidCity);
+safeLoadWeatherData(lastValidCity, (firstCall = true));
 
 // Helper Functions
 function refreshAllData() {
@@ -179,9 +179,9 @@ async function handleLocationInput(event) {
     await safeLoadWeatherData(locationInputElement.value);
 }
 
-async function safeLoadWeatherData(cityName) {
+async function safeLoadWeatherData(cityName, firstCall = false) {
     try {
-        await getAndUpdateWeatherData(cityName);
+        await getAndUpdateWeatherData(cityName, firstCall);
         resetInputElement(cityName);
     } catch (err) {
         resetInputElement("Err: " + err);
@@ -193,10 +193,12 @@ function resetInputElement(placeholder, value = "") {
     locationInputElement.value = value;
 }
 
-async function getAndUpdateWeatherData(cityName) {
+async function getAndUpdateWeatherData(cityName, firstCall) {
     let weatherData = await getWeatherData(cityName);
     updateCurrentWeatherData(weatherData);
-    updateBackgroundImage(cityName);
+    if (!firstCall) {
+        updateBackgroundImage(cityName);
+    }
     lastValidCity = cityName;
 }
 

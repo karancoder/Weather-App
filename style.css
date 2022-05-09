@@ -7,7 +7,7 @@
 }
 
 body {
-    background-image: url("https://source.unsplash.com/1600x900/?landscape");
+    background-image: url("https://source.unsplash.com/1600x900/?andaman");
     background-repeat: no-repeat;
     background-size: cover;
     font-family: "Roboto", sans-serif;
@@ -189,7 +189,21 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    animation: show 500ms ease-in;
     border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+@keyframes show {
+    0% {
+        opacity: 0.4;
+        transform: scale(0);
+    }
+    80% {
+        transform: scale(1.1);
+    }
+    90% {
+        transform: scale(0.9);
+    }
 }
 
 .future-forecast-item:nth-child(3n + 1) {
@@ -220,7 +234,7 @@ body {
 
 @media screen and (max-width: 768px) {
     body {
-        background-image: url("https://source.unsplash.com/900x1600/?landscape");
+        background-image: url("https://source.unsplash.com/900x1600/?andaman");
     }
 
     .date-location-container {
