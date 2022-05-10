@@ -20,7 +20,7 @@ const locationInputButton = document.getElementById("location-search-btn");
 const locationInputElement = document.getElementById("location");
 
 // Global Variables
-let lastValidCity = "Andaman";
+let lastValidCity = "Maldives";
 let backgroundImageRes = "1600x900";
 let mobileScreenMediaQueryElement = window.matchMedia("(max-width: 768px)");
 
