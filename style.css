@@ -142,6 +142,12 @@ body {
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.35);
     backdrop-filter: saturate(100%) blur(2px);
+    transition: all 200ms ease-in;
+}
+
+.general-weather-info-text:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.1);
 }
 
 .additional-weather-info-container {
@@ -198,12 +204,6 @@ body {
         opacity: 0.4;
         transform: scale(0);
     }
-    80% {
-        transform: scale(1.1);
-    }
-    90% {
-        transform: scale(0.9);
-    }
 }
 
 .future-forecast-item:nth-child(3n + 1) {
@@ -220,16 +220,30 @@ body {
 
 .future-forecast-day,
 .future-forecast-icon,
-.future-forecast-temperature {
+.future-forecast-temperature,
+.future-forecast-general-info {
     margin: 0.2rem;
     padding: 0.2rem;
     font-weight: 400;
+    transition: all 200ms ease-in;
+}
+
+.future-forecast-icon:hover,
+.future-forecast-general-info:hover {
+    transform: scale(1.1);
 }
 
 .future-forecast-icon {
     background: rgba(0, 0, 0, 0.2);
     padding: 0.3rem;
     border-radius: 50px;
+}
+
+.future-forecast-general-info {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
 }
 
 @media screen and (max-width: 768px) {

@@ -91,6 +91,28 @@ const OPEN_WEATHER_API_ICONS_TO_WU_ICONS = {
     "13n": `<i class="wu wu-white wu-128 wu-snow wu-night"></i>`,
     "50n": `<i class="wu wu-white wu-128 wu-hazy wu-night"></i>`,
 };
+const OPEN_WEATHER_API_ICONS_TO_WU_ICONS_64_PX = {
+    // Day
+    "01d": `<i class="wu wu-white wu-64 wu-sunny"></i>`,
+    "02d": `<i class="wu wu-white wu-64 wu-partlycloudy"></i>`,
+    "03d": `<i class="wu wu-white wu-64 wu-cloudy"></i>`,
+    "04d": `<i class="wu wu-white wu-64 wu-cloudy"></i>`,
+    "09d": `<i class="wu wu-white wu-64 wu-chancerain"></i>`,
+    "10d": `<i class="wu wu-white wu-64 wu-rain"></i>`,
+    "11d": `<i class="wu wu-white wu-64 wu-tstorms"></i>`,
+    "13d": `<i class="wu wu-white wu-64 wu-snow"></i>`,
+    "50d": `<i class="wu wu-white wu-64 wu-hazy"></i>`,
+    // Night
+    "01n": `<i class="wu wu-white wu-64 wu-sunny wu-night"></i>`,
+    "02n": `<i class="wu wu-white wu-64 wu-partlycloudy wu-night"></i>`,
+    "03n": `<i class="wu wu-white wu-64 wu-cloudy wu-night"></i>`,
+    "04n": `<i class="wu wu-white wu-64 wu-cloudy wu-night"></i>`,
+    "09n": `<i class="wu wu-white wu-64 wu-chancerain wu-night"></i>`,
+    "10n": `<i class="wu wu-white wu-64 wu-rain wu-night"></i>`,
+    "11n": `<i class="wu wu-white wu-64 wu-tstorms wu-night"></i>`,
+    "13n": `<i class="wu wu-white wu-64 wu-snow wu-night"></i>`,
+    "50n": `<i class="wu wu-white wu-64 wu-hazy wu-night"></i>`,
+};
 
 const hPA_TO_mm_Hg_CONVERSION_RATE = 0.75006157584566;
 
@@ -196,6 +218,7 @@ function resetInputElement(placeholder, value = "") {
 async function getAndUpdateWeatherData(cityName, firstCall) {
     let weatherData = await getWeatherData(cityName);
     updateCurrentWeatherData(weatherData);
+    updateFutureForecastWeatherData(weatherData);
     if (!firstCall) {
         updateBackgroundImage(cityName);
     }
@@ -207,6 +230,70 @@ function updateCurrentWeatherData(weatherData) {
     updateTemperatureData(currentWeatherData);
     updateGeneralWeatherInfo(currentWeatherData);
     updateAdditionalWeatherInfo(currentWeatherData);
+}
+
+function updateFutureForecastWeatherData(weatherData) {
+    futureForecastListElement.innerHTML = "";
+    weatherData.daily.forEach((dailyForecast, idx) => {
+        let futureForecastElement = createFutureForecastElement(dailyForecast);
+        setTimeout(() => {
+            futureForecastListElement.appendChild(futureForecastElement);
+        }, idx * 100);
+    });
+}
+
+function createFutureForecastElement(dailyForecast) {
+    let weather = dailyForecast.weather[0];
+    let futureForecastElement = document.createElement("div");
+    futureForecastElement.classList.add("future-forecast-item");
+    let futureForecastElementDay =
+        createFutureForecastDayElement(dailyForecast);
+    futureForecastElement.appendChild(futureForecastElementDay);
+    let futureForecastElementIcon = createFutureForecastIconElement(weather);
+    futureForecastElement.appendChild(futureForecastElementIcon);
+    let futureForecastElementTemp =
+        createFutureForecastTempElement(dailyForecast);
+    futureForecastElement.appendChild(futureForecastElementTemp);
+    let futureForecastElementWeather =
+        createFutureForecastWeatherElement(weather);
+    futureForecastElement.appendChild(futureForecastElementWeather);
+    return futureForecastElement;
+}
+
+function createFutureForecastDayElement(dailyForecast) {
+    let futureForecastElementDay = document.createElement("div");
+    futureForecastElementDay.classList.add("future-forecast-day");
+    let day = new Date(dailyForecast["dt"] * 1000).getDay();
+    futureForecastElementDay.innerText = DAYS[day];
+    return futureForecastElementDay;
+}
+
+function createFutureForecastIconElement(weather) {
+    let futureForecastElementIcon = document.createElement("div");
+    futureForecastElementIcon.classList.add("future-forecast-icon");
+    futureForecastElementIcon.innerHTML =
+        OPEN_WEATHER_API_ICONS_TO_WU_ICONS_64_PX[weather["icon"]];
+    return futureForecastElementIcon;
+}
+
+function createFutureForecastTempElement(dailyForecast) {
+    let futureForecastElementTemp = document.createElement("div");
+    futureForecastElementTemp.classList.add("future-forecast-temperature");
+    futureForecastElementTemp.innerHTML = `${Math.round(
+        dailyForecast["temp"]["min"]
+    )}<span>&#176;</span> / ${Math.round(
+        dailyForecast["temp"]["max"]
+    )}<span>&#176;</span>`;
+    return futureForecastElementTemp;
+}
+
+function createFutureForecastWeatherElement(weather) {
+    let futureForecastElementWeather = document.createElement("div");
+    futureForecastElementWeather.classList.add("future-forecast-general-info");
+    futureForecastElementWeather.innerHTML = capitalizeFirstLetter(
+        weather["description"]
+    );
+    return futureForecastElementWeather;
 }
 
 function updateBackgroundImageResBasedOnMediaQuery(mediaQuery) {
