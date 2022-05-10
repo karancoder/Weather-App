@@ -179,7 +179,7 @@ async function getWeatherData(cityName) {
 }
 
 async function getLatiLongFromCityName(cityName) {
-    let api_geocoding_url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${API_KEY}`;
+    let api_geocoding_url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${API_KEY}`;
     let latitude, longitude;
     let res;
     try {
