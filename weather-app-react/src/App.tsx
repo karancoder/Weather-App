@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import type { WeatherData } from './types/weather'
 import { getWeatherData } from './services/weatherApi'
 import { getBackgroundImageUrl } from './utils/helpers'
@@ -14,7 +14,13 @@ function App() {
   const [error, setError] = useState<string>('')
   const [backgroundImage, setBackgroundImage] = useState<string>('')
 
-  const handleLocationSearch = async (cityName: string) => {
+  const updateBackgroundImage = useCallback((cityName: string) => {
+    const isMobile = window.innerWidth <= 768
+    const imageUrl = getBackgroundImageUrl(cityName, isMobile)
+    setBackgroundImage(imageUrl)
+  }, [])
+
+  const handleLocationSearch = useCallback(async (cityName: string) => {
     if (!cityName.trim()) return
 
     setLoading(true)
@@ -30,13 +36,7 @@ function App() {
     } finally {
       setLoading(false)
     }
-  }
-
-  const updateBackgroundImage = (cityName: string) => {
-    const isMobile = window.innerWidth <= 768
-    const imageUrl = getBackgroundImageUrl(cityName, isMobile)
-    setBackgroundImage(imageUrl)
-  }
+  }, [updateBackgroundImage])
 
   useEffect(() => {
     // Load initial weather data
@@ -49,7 +49,7 @@ function App() {
     
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [handleLocationSearch, updateBackgroundImage, currentCity])
 
   return (
     <div 

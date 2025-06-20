@@ -1,5 +1,7 @@
 # Weather App - React Version
 
+> ⚠️ **API Update (June 2024)**: This app has been updated to use OpenWeatherMap's free APIs after the One Call API 2.5 deprecation. See [API_FIX.md](./API_FIX.md) for details.
+
 A modern, responsive weather application built with React, TypeScript, Vite, and Tailwind CSS. This is a complete rewrite of the original vanilla JavaScript weather app.
 
 ## 🚀 Features
