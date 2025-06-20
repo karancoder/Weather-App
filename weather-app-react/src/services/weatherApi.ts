@@ -62,7 +62,8 @@ export async function getWeatherData(cityName: string): Promise<WeatherData> {
           id: currentData.weather[0].id
         }]
       },
-      daily: transformForecastToDaily(forecastData.list)
+      daily: transformForecastToDaily(forecastData.list),
+      cityName: currentData.name
     };
     
     return transformedData;

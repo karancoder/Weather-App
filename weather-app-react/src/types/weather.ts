@@ -27,6 +27,7 @@ export interface DailyForecast {
 export interface WeatherData {
   current: CurrentWeather;
   daily: DailyForecast[];
+  cityName: string;
 }
 
 export interface LocationData {

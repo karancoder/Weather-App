@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react'
 import type { WeatherData } from './types/weather'
 import { getWeatherData } from './services/weatherApi'
 import LocationSearch from './components/LocationSearch'
-import DateTime from './components/DateTime'
 import CurrentWeather from './components/CurrentWeather'
 import FutureForecast from './components/FutureForecast'
 
@@ -38,48 +37,43 @@ function App() {
     <div 
       className="min-h-screen"
       style={{
-        background: 'linear-gradient(135deg, #e0f2fe 0%, #e8eaf6 50%, #f3e5f5 100%)'
+        background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%)'
       }}
     >
-      <div className="container mx-auto px-6 py-10 max-w-7xl">
-        {/* Header Section */}
-        <div className="mb-12 space-y-8">
-          <div className="text-center px-4">
-            <h1 className="text-5xl font-bold text-gray-900 mb-4">
-              Weather App
-            </h1>
-            <p className="text-xl text-gray-600">
-              Get current weather and forecasts for any city
-            </p>
-          </div>
-          
-          <div className="max-w-lg mx-auto px-4">
-            <LocationSearch 
-              onLocationSearch={handleLocationSearch}
-              loading={loading}
-              error={error}
-              currentCity={currentCity}
-            />
-          </div>
-
-          <div className="px-4">
-            <DateTime />
-          </div>
+      <div className="container mx-auto px-6 py-12 max-w-5xl">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-6xl font-bold text-white mb-4">
+            WeatherNow
+          </h1>
+          <p className="text-xl text-white/80">
+            Beautiful weather forecasts for anywhere in the world
+          </p>
+        </div>
+        
+        {/* Search */}
+        <div className="max-w-md mx-auto mb-12">
+          <LocationSearch 
+            onLocationSearch={handleLocationSearch}
+            loading={loading}
+            error={error}
+            currentCity={currentCity}
+          />
         </div>
 
         {/* Main Content */}
         {weatherData ? (
-          <div className="space-y-10 px-4">
+          <div className="space-y-8">
             <CurrentWeather weatherData={weatherData} />
             <FutureForecast dailyForecasts={weatherData.daily} />
           </div>
         ) : loading ? (
           <div className="flex items-center justify-center py-32">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-white"></div>
           </div>
         ) : error ? (
           <div className="text-center py-32 px-4">
-            <p className="text-red-600 text-xl">{error}</p>
+            <p className="text-white text-xl">{error}</p>
           </div>
         ) : null}
       </div>

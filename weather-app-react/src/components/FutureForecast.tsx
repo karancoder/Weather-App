@@ -10,52 +10,52 @@ interface FutureForecastProps {
 
 const FutureForecast: React.FC<FutureForecastProps> = ({ dailyForecasts }) => {
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl">
-      <CardHeader className="pb-6">
+    <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-2xl rounded-3xl overflow-hidden">
+      <CardHeader className="pb-4">
         <CardTitle className="text-gray-900 flex items-center gap-3 text-2xl">
-          <CalendarDays className="h-7 w-7 text-blue-600" />
+          <CalendarDays className="h-6 w-6 text-gray-700" />
           7-Day Forecast
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-6">
+      <CardContent className="p-8 pt-0">
+        <div className="flex gap-4 overflow-x-auto pb-4">
           {dailyForecasts.map((forecast, index) => {
             const weather = forecast.weather[0]
             const weatherIcon = OPEN_WEATHER_API_ICONS_TO_WU_ICONS[weather.icon]
             const dayOfWeek = getDayFromTimestamp(forecast.dt)
             const description = capitalizeFirstLetter(weather.description)
+            const isToday = index === 0
 
             return (
-              <Card
+              <div
                 key={index}
-                className="bg-white border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 transform"
+                className={`flex-shrink-0 w-32 rounded-2xl p-6 text-center transition-all duration-300 ${
+                  isToday 
+                    ? 'bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg' 
+                    : 'bg-gray-50 hover:bg-gray-100 text-gray-900'
+                }`}
               >
-                <CardContent className="p-6 text-center space-y-4">
-                  <div className="font-semibold text-gray-900 text-lg">
-                    {index === 0 ? 'Today' : dayOfWeek}
+                <div className={`font-semibold mb-4 ${isToday ? 'text-white' : 'text-gray-900'}`}>
+                  {isToday ? 'TODAY' : dayOfWeek.slice(0, 3).toUpperCase()}
+                </div>
+                
+                <div 
+                  className="text-5xl mb-4 mx-auto"
+                  dangerouslySetInnerHTML={{ __html: weatherIcon }}
+                />
+                
+                <div className="space-y-2">
+                  <div className={`text-2xl font-bold ${isToday ? 'text-white' : 'text-gray-900'}`}>
+                    {Math.round(forecast.temp.max)}°
                   </div>
-                  
-                  <div 
-                    className="text-6xl mx-auto"
-                    dangerouslySetInnerHTML={{ __html: weatherIcon }}
-                  />
-                  
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-gray-900">
-                        {Math.round(forecast.temp.max)}°
-                      </span>
-                      <span className="text-xl text-gray-500">
-                        {Math.round(forecast.temp.min)}°
-                      </span>
-                    </div>
-                    
-                    <div className="text-sm text-gray-600 leading-relaxed">
-                      {description}
-                    </div>
+                  <div className={`text-lg ${isToday ? 'text-white/80' : 'text-gray-500'}`}>
+                    {Math.round(forecast.temp.min)}°
                   </div>
-                </CardContent>
-              </Card>
+                  <div className={`text-sm ${isToday ? 'text-white/90' : 'text-gray-600'}`}>
+                    {description}
+                  </div>
+                </div>
+              </div>
             )
           })}
         </div>
