@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import type { WeatherData } from './types/weather'
 import { getWeatherData } from './services/weatherApi'
-import { getBackgroundImageUrl } from './utils/helpers'
 import LocationSearch from './components/LocationSearch'
 import DateTime from './components/DateTime'
 import CurrentWeather from './components/CurrentWeather'
@@ -12,13 +11,6 @@ function App() {
   const [currentCity, setCurrentCity] = useState<string>('Maldives')
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
-  const [backgroundImage, setBackgroundImage] = useState<string>('')
-
-  const updateBackgroundImage = useCallback((cityName: string) => {
-    const isMobile = window.innerWidth <= 768
-    const imageUrl = getBackgroundImageUrl(cityName, isMobile)
-    setBackgroundImage(imageUrl)
-  }, [])
 
   const handleLocationSearch = useCallback(async (cityName: string) => {
     if (!cityName.trim()) return
@@ -30,35 +22,23 @@ function App() {
       const data = await getWeatherData(cityName)
       setWeatherData(data)
       setCurrentCity(cityName)
-      updateBackgroundImage(cityName)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setLoading(false)
     }
-  }, [updateBackgroundImage])
+  }, [])
 
   useEffect(() => {
     // Load initial weather data
     handleLocationSearch(currentCity)
-    
-    // Handle window resize for background image
-    const handleResize = () => {
-      updateBackgroundImage(currentCity)
-    }
-    
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [handleLocationSearch, updateBackgroundImage, currentCity])
+  }, [handleLocationSearch, currentCity])
 
   return (
-    <div 
-      className="min-h-screen w-full bg-cover bg-center bg-no-repeat font-roboto font-light overflow-hidden"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      <div className="min-h-screen bg-black bg-opacity-40 text-white flex flex-col items-center">
-        <div className="flex-1 w-full flex flex-col items-center">
-          <div className="m-4 p-2 flex flex-col items-center">
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-900 via-blue-600 to-purple-600 font-roboto font-light overflow-hidden">
+      <div className="min-h-screen bg-black bg-opacity-20 text-white flex flex-col">
+        <div className="flex-1 flex flex-col items-center p-4">
+          <div className="w-full max-w-md mb-8">
             <LocationSearch 
               onLocationSearch={handleLocationSearch}
               loading={loading}
@@ -69,12 +49,16 @@ function App() {
           </div>
           
           {weatherData && (
-            <CurrentWeather weatherData={weatherData} />
+            <div className="w-full max-w-6xl">
+              <CurrentWeather weatherData={weatherData} />
+            </div>
           )}
         </div>
         
         {weatherData && (
-          <FutureForecast dailyForecasts={weatherData.daily} />
+          <div className="w-full">
+            <FutureForecast dailyForecasts={weatherData.daily} />
+          </div>
         )}
       </div>
     </div>
