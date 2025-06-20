@@ -2,17 +2,29 @@
 
 > ⚠️ **API Update (June 2024)**: This app has been updated to use OpenWeatherMap's free APIs after the One Call API 2.5 deprecation. See [API_FIX.md](./API_FIX.md) for details.
 
-A modern, responsive weather application built with React, TypeScript, Vite, and Tailwind CSS. This is a complete rewrite of the original vanilla JavaScript weather app.
+> 🎨 **UI Redesign**: Completely redesigned with modern shadcn/ui components and beautiful light theme. See [UI_REDESIGN.md](./UI_REDESIGN.md) for details.
+
+A modern, responsive weather application built with React, TypeScript, Vite, Tailwind CSS, and shadcn/ui. This is a complete rewrite of the original vanilla JavaScript weather app with a stunning modern interface.
 
 ## 🚀 Features
 
 - **Real-time Weather Data**: Get current weather conditions and 7-day forecasts
-- **Location Search**: Search for weather in any city worldwide
-- **Live Date & Time**: Always up-to-date time display
-- **Dynamic Backgrounds**: Beautiful location-based background images from Unsplash
-- **Responsive Design**: Optimized for both desktop and mobile devices
-- **Smooth Animations**: Elegant transitions and loading animations
+- **Modern UI Design**: Beautiful light theme with gradient backgrounds and glass-morphism effects
+- **Location Search**: Search for weather in any city worldwide with enhanced input experience
+- **Live Date & Time**: Always up-to-date time display with modern icons
+- **Responsive Design**: Perfect on mobile, tablet, and desktop with adaptive grid layouts
+- **Smooth Animations**: Elegant transitions, loading states, and hover effects
 - **TypeScript**: Full type safety and better developer experience
+- **Accessible**: Built with modern accessibility standards using shadcn/ui components
+
+## 🎨 Design System
+
+- **Component Library**: shadcn/ui with Radix UI primitives
+- **Icons**: Lucide React for consistent, modern iconography
+- **Color Palette**: Beautiful blue gradients with semi-transparent cards
+- **Typography**: Clean hierarchy with proper contrast ratios
+- **Layout**: CSS Grid with responsive breakpoints
+- **Animations**: Smooth 300ms transitions with staggered entrance effects
 
 ## 🛠️ Tech Stack
 
@@ -20,8 +32,9 @@ A modern, responsive weather application built with React, TypeScript, Vite, and
 - **TypeScript** - Type-safe JavaScript
 - **Vite** - Fast build tool and dev server
 - **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Modern, accessible component library
+- **Lucide React** - Beautiful icon system
 - **OpenWeatherMap API** - Weather data source
-- **Unsplash API** - Dynamic background images
 
 ## 📦 Installation
 

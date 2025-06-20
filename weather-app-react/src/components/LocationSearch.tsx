@@ -1,4 +1,8 @@
 import { useState } from 'react'
+import { Search, MapPin, Loader2 } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 
 interface LocationSearchProps {
   onLocationSearch: (cityName: string) => void
@@ -30,25 +34,51 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
   }
 
   return (
-    <div className="flex bg-white bg-opacity-20 border border-white border-opacity-20 backdrop-blur-md backdrop-saturate-150">
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onKeyPress={handleKeyPress}
-        placeholder={error || (loading ? 'Loading...' : currentCity)}
-        className="bg-transparent border-none p-3 text-4xl md:text-2xl text-white placeholder-white placeholder-opacity-50 focus:outline-none focus:text-white"
-        size={20}
-        disabled={loading}
-      />
-      <button
-        onClick={handleSubmit}
-        disabled={loading}
-        className="bg-transparent border-none p-3 text-2xl md:text-xl cursor-pointer text-white border-l-2 border-black border-opacity-20 hover:bg-white hover:bg-opacity-20 active:bg-black active:bg-opacity-10 disabled:cursor-not-allowed"
-      >
-        <i className="fa-solid fa-magnifying-glass"></i>
-      </button>
-    </div>
+    <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+      <CardContent className="p-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder={loading ? 'Searching...' : 'Enter city name'}
+                className="pl-10 h-12 text-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                disabled={loading}
+              />
+            </div>
+            <Button 
+              type="submit"
+              disabled={loading || !inputValue.trim()}
+              size="lg"
+              className="h-12 px-6 bg-blue-600 hover:bg-blue-700"
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Search className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
+          
+          {error && (
+            <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg border border-red-200">
+              {error}
+            </div>
+          )}
+          
+          {!error && !loading && currentCity && (
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <MapPin className="h-4 w-4" />
+              <span>Currently showing weather for <strong>{currentCity}</strong></span>
+            </div>
+          )}
+        </form>
+      </CardContent>
+    </Card>
   )
 }
 

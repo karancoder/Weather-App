@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Clock, Calendar } from 'lucide-react'
 import { formatDateTime } from '../utils/helpers'
+import { Card, CardContent } from '@/components/ui/card'
 
 const DateTime: React.FC = () => {
   const [timeString, setTimeString] = useState('')
@@ -22,12 +24,20 @@ const DateTime: React.FC = () => {
   }, [])
 
   return (
-    <div className="text-2xl md:text-xl flex flex-col items-center mt-2">
-      <div className="mt-2 mb-1">{dateString}</div>
-      <div className="time">
-        <span>{timeString}</span>
-      </div>
-    </div>
+    <Card className="bg-white/60 backdrop-blur-sm border-0 shadow-md">
+      <CardContent className="p-4">
+        <div className="flex items-center justify-center gap-6 text-gray-700">
+          <div className="flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-blue-600" />
+            <span className="text-lg font-medium">{dateString}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Clock className="h-5 w-5 text-blue-600" />
+            <span className="text-lg font-mono font-semibold">{timeString}</span>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 

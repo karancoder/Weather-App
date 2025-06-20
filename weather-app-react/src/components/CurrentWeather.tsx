@@ -1,6 +1,10 @@
 import type { WeatherData } from '../types/weather'
 import { OPEN_WEATHER_API_ICONS_TO_WU_ICONS } from '../utils/constants'
 import { convertPressureToMMHg, convertWindDirectionDegreesToCardinals, capitalizeFirstLetter } from '../utils/helpers'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
+import { Thermometer, Droplets, Wind, Gauge } from 'lucide-react'
 
 interface CurrentWeatherProps {
   weatherData: WeatherData
@@ -15,55 +19,72 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ weatherData }) => {
   const description = capitalizeFirstLetter(weather.description)
 
   return (
-    <div className="w-full h-full flex flex-col md:flex-row">
-      {/* Temperature Info */}
-      <div className="flex-1 flex flex-col justify-center items-end md:items-end md:mr-2">
-        <div className="text-8xl md:text-6xl font-light">
-          {Math.round(current.temp)}
-          <span>°</span>
-        </div>
-        <div className="text-xl md:text-lg pr-3">
-          {Math.round(current.feels_like)}
-          <span>°</span> feels
-        </div>
-      </div>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Main Weather Card */}
+      <Card className="lg:col-span-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
+        <CardContent className="p-8">
+          <div className="flex items-center justify-between">
+            <div className="space-y-2">
+              <div className="text-6xl font-light">
+                {Math.round(current.temp)}°
+              </div>
+              <div className="text-blue-100 text-lg">
+                Feels like {Math.round(current.feels_like)}°
+              </div>
+              <Badge variant="secondary" className="bg-white/20 text-white hover:bg-white/30">
+                {description}
+              </Badge>
+            </div>
+            <div className="text-center">
+              <div 
+                className="text-8xl mb-2"
+                dangerouslySetInnerHTML={{ __html: weatherIcon }}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Weather Icon and Description */}
-      <div className="flex-1 flex flex-col justify-center items-center h-full">
-        <div 
-          className="p-4 md:p-6 text-7xl md:text-5xl"
-          dangerouslySetInnerHTML={{ __html: weatherIcon }}
-        />
-        <div className="px-2 py-1 rounded bg-black bg-opacity-35 backdrop-blur-sm transition-all duration-200 hover:bg-white hover:bg-opacity-35 hover:scale-110">
-          {description}
-        </div>
-      </div>
-
-      {/* Additional Weather Info */}
-      <div className="flex-1 flex flex-row md:flex-row justify-center md:justify-start md:ml-2 items-center text-xl md:text-lg text-gray-200 font-normal">
-        <div className="flex flex-col items-start">
-          <div className="p-1 text-3xl md:text-2xl">
-            <i className="fa-solid fa-temperature-quarter"></i>
+      {/* Weather Details Card */}
+      <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-gray-900 flex items-center gap-2">
+            <Gauge className="h-5 w-5 text-blue-600" />
+            Weather Details
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-gray-600">
+                <Thermometer className="h-4 w-4" />
+                <span>Pressure</span>
+              </div>
+              <span className="font-semibold text-gray-900">{pressure} mm Hg</span>
+            </div>
+            
+            <Separator />
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-gray-600">
+                <Droplets className="h-4 w-4" />
+                <span>Humidity</span>
+              </div>
+              <span className="font-semibold text-gray-900">{current.humidity}%</span>
+            </div>
+            
+            <Separator />
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-gray-600">
+                <Wind className="h-4 w-4" />
+                <span>Wind Speed</span>
+              </div>
+              <span className="font-semibold text-gray-900">{current.wind_speed} m/s {windDirection}</span>
+            </div>
           </div>
-          <div className="p-1 text-3xl md:text-2xl">
-            <i className="fa-solid fa-droplet"></i>
-          </div>
-          <div className="p-1 text-3xl md:text-2xl">
-            <i className="fa-solid fa-wind"></i>
-          </div>
-        </div>
-        <div className="flex flex-col items-start ml-4">
-          <div className="py-2 px-2">
-            {pressure} mm Hg
-          </div>
-          <div className="py-2 px-2">
-            {current.humidity}%
-          </div>
-          <div className="py-2 px-2">
-            {current.wind_speed}m/s {windDirection}
-          </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
