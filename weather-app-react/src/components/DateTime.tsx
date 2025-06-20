@@ -24,16 +24,16 @@ const DateTime: React.FC = () => {
   }, [])
 
   return (
-    <Card className="bg-white/60 backdrop-blur-sm border-0 shadow-md">
-      <CardContent className="p-4">
-        <div className="flex items-center justify-center gap-6 text-gray-700">
-          <div className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-blue-600" />
-            <span className="text-lg font-medium">{dateString}</span>
+    <Card className="bg-white/70 backdrop-blur-sm border-0 shadow-lg">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-center gap-8 text-gray-700">
+          <div className="flex items-center gap-3">
+            <Calendar className="h-6 w-6 text-blue-600" />
+            <span className="text-xl font-medium">{dateString}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Clock className="h-5 w-5 text-blue-600" />
-            <span className="text-lg font-mono font-semibold">{timeString}</span>
+          <div className="flex items-center gap-3">
+            <Clock className="h-6 w-6 text-blue-600" />
+            <span className="text-xl font-mono font-semibold">{timeString}</span>
           </div>
         </div>
       </CardContent>
